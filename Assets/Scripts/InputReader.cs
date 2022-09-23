@@ -5,23 +5,24 @@ using UnityEngine;
 
 public abstract class InputReader : MonoBehaviour
 {
-
+    public enum InputType { KeyboardMouse, PS4Controller }
+    public InputType currentInputType = InputType.KeyboardMouse;
     public virtual bool GetAxis(out Vector2 vector2)
     {
         throw new NotImplementedException();
     }
 
-    public virtual bool GetCrossButton()
+    public virtual bool GetJumpButton()
     {
         throw new NotImplementedException();
     }
 
-    public virtual bool GetCircleButton()
+    public virtual bool GetRollButton()
     {
         throw new NotImplementedException();
     }
 
-    public virtual bool GetTriangleButton()
+    public virtual bool GetHeavyAttackButton()
     {
         throw new NotImplementedException();
     }
@@ -71,7 +72,7 @@ public abstract class InputReader : MonoBehaviour
         throw new NotImplementedException();
     }
 
-    public virtual bool GetSquareButton()
+    public virtual bool GetLightAttackButton()
     {
         throw new NotImplementedException();
     }

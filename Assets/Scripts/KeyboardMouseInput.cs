@@ -15,12 +15,12 @@ public class KeyboardMouseInput : InputReader
         return Mathf.Abs(vector2.x) + Mathf.Abs(vector2.y) == 0;
     }
 
-    public override bool GetCircleButton()
+    public override bool GetRollButton()
     {
         return Input.GetButton("Fire3");
     }
 
-    public override bool GetCrossButton()
+    public override bool GetJumpButton()
     {
         return Input.GetButton("Fire2");
     }
@@ -60,7 +60,7 @@ public class KeyboardMouseInput : InputReader
         return base.GetR3Button();
     }
 
-    public override bool GetSquareButton()
+    public override bool GetLightAttackButton()
     {
         return Input.GetButton("Fire1");
     }
@@ -75,7 +75,7 @@ public class KeyboardMouseInput : InputReader
         return base.GetTouchpad();
     }
 
-    public override bool GetTriangleButton()
+    public override bool GetHeavyAttackButton()
     {
         return Input.GetButton("Fire4");
     }
