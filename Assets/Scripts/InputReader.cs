@@ -3,6 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public static class InputReaderTool
+{
+    public static Vector3 To3DMovementAxis(this Vector2 vector2)
+    {
+        return new Vector3(vector2.x, 0f, vector2.y);
+    }
+}
+
+
 public abstract class InputReader : MonoBehaviour
 {
     public enum InputType { KeyboardMouse, PS4Controller }

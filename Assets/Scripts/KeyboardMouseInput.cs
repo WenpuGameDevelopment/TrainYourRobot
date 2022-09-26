@@ -17,7 +17,7 @@ public class KeyboardMouseInput : InputReader
 
     public override Vector2 GetAxis()
     {
-        return new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        return new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
     }
 
     public override bool GetRollButton()
