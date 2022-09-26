@@ -9,10 +9,15 @@ public class KeyboardMouseInput : InputReader
     public KeyCode dodge;
     public KeyCode jump;
 
-    public override bool GetAxis(out Vector2 vector2)
+    public override bool HasMovementInput()
     {
-        vector2 = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        return Mathf.Abs(vector2.x) + Mathf.Abs(vector2.y) == 0;
+        var vector2 = GetAxis();
+        return Mathf.Abs(vector2.x) == 0 ||  Mathf.Abs(vector2.y) == 0;
+    }
+
+    public override Vector2 GetAxis()
+    {
+        return new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
     }
 
     public override bool GetRollButton()
@@ -77,6 +82,6 @@ public class KeyboardMouseInput : InputReader
 
     public override bool GetHeavyAttackButton()
     {
-        return Input.GetButton("Fire4");
+        return Input.GetButton("Jump");
     }
 }

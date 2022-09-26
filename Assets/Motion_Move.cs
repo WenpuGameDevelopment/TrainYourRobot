@@ -5,20 +5,30 @@ using UnityEngine;
 public class Motion_Move : StateMachineBehaviour
 {
     InputReader inputReader = new KeyboardMouseInput();
+    public float moveSpeed = 5f;
+    Transform main;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        if (main == null) main = animator.transform;
+        animator.SetBool("Move", true);
+    }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (inputReader.GetAxis(out Vector2 xy))
+        Vector2 input = inputReader.GetAxis();
+        animator.SetFloat("X", input.x);
+        animator.SetFloat("Y", input.y);
+        if (inputReader.HasMovementInput())
         {
-            animator.SetFloat("X", xy.x);
-            animator.SetFloat("Y", xy.y);
+            animator.transform.position += moveSpeed * Time.deltaTime * (main.rotation * new Vector3(input.x, 0f, input.y));
         }
+        else
+        {
+            //animator.SetBool("Move", false);
+        }
+
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

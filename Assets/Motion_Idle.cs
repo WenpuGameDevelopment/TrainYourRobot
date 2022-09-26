@@ -13,7 +13,8 @@ public class Motion_Idle : StateMachineBehaviour
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if(inputReader.GetAxis(out Vector2 xy))
+        Vector2 input = inputReader.GetAxis();
+        if (inputReader.HasMovementInput())
         {
             animator.SetBool("Move", true);
         }

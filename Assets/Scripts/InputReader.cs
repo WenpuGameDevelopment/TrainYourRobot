@@ -7,7 +7,12 @@ public abstract class InputReader : MonoBehaviour
 {
     public enum InputType { KeyboardMouse, PS4Controller }
     public InputType currentInputType = InputType.KeyboardMouse;
-    public virtual bool GetAxis(out Vector2 vector2)
+
+    public virtual bool HasMovementInput()
+    {
+        throw new NotImplementedException();
+    }
+    public virtual Vector2 GetAxis()
     {
         throw new NotImplementedException();
     }
