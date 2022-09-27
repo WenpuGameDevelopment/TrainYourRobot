@@ -5,22 +5,24 @@ using UnityEngine;
 public class Motion_Idle : StateMachineBehaviour
 {
     InputReader inputReader = new KeyboardMouseInput();
+    Transform main;
+    Camera cam;
+    public float turnSpeed = 5f;
+    public float turnSpeedMultiplier = 25f;
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        if (cam == null) cam = Camera.main;
+        if (main == null) main = animator.transform;
         animator.SetInteger("Attack", 0);
         animator.SetInteger("HeavyAttack", 0);
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Vector2 input = inputReader.GetAxis();
-        if (inputReader.HasMovementInput())
-        {
-            animator.SetBool("Move", true);
-        }
+        animator.SetBool("Move", inputReader.HasMovementInput());
         if (inputReader.GetLightAttackButton())
         {
-            animator.SetInteger("Attack", 1);
+            animator.SetBool("Attack", true);
         }
         if (inputReader.GetHeavyAttackButton())
         {
@@ -45,4 +47,13 @@ public class Motion_Idle : StateMachineBehaviour
     //{
     //    // Implement code that sets up animation IK (inverse kinematics)
     //}
+    public void RotateTowardTurnPoint(float turnSpeedMultiplier)
+    {
+        var currentInput = inputReader.GetAxis().To3DMovementAxis();
+        var angle = Mathf.Atan2(currentInput.x, currentInput.z);
+        angle = Mathf.Rad2Deg * angle;
+        angle += cam.transform.eulerAngles.y;
+        var targetRotation = Quaternion.Euler(0, angle, 0);
+        main.rotation = Quaternion.Lerp(main.rotation, targetRotation, turnSpeedMultiplier * turnSpeed * Time.deltaTime);
+    }
 }

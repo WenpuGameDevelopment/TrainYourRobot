@@ -12,7 +12,7 @@ public class KeyboardMouseInput : InputReader
     public override bool HasMovementInput()
     {
         var vector2 = GetAxis();
-        return Mathf.Abs(vector2.x) == 0 ||  Mathf.Abs(vector2.y) == 0;
+        return Mathf.Abs(vector2.x) > 0 ||  Mathf.Abs(vector2.y) > 0;
     }
 
     public override Vector2 GetAxis()
@@ -67,7 +67,7 @@ public class KeyboardMouseInput : InputReader
 
     public override bool GetLightAttackButton()
     {
-        return Input.GetButton("Fire1");
+        return Input.GetMouseButton(0);
     }
 
     public override bool GetStartButton()

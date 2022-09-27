@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
+    [SerializeField] Animator anim;
     InputReader inputReader;
     Rigidbody rb;
     public float movementSpeed = 5f;
@@ -11,6 +12,10 @@ public class CharacterMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(!TryGetComponent(out anim))
+        {
+            anim = GetComponentInChildren<Animator>();
+        }
         cam = Camera.main;
         rb = GetComponent<Rigidbody>();
         inputReader = new KeyboardMouseInput();
@@ -19,9 +24,9 @@ public class CharacterMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Vector3 direction = cam.transform.TransformDirection(inputReader.GetAxis().To3DMovementAxis());
-        Debug.Log(direction);
-        direction.y = 0;
-        rb.velocity = direction * movementSpeed;
+
+
+        anim.SetInteger("Move", inputReader.HasMovementInput() ? 1 : 0);
+
     }
 }
