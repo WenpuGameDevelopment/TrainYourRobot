@@ -7,14 +7,17 @@ public class Motion_Idle : StateMachineBehaviour
     InputReader inputReader = new KeyboardMouseInput();
     Transform main;
     Camera cam;
+    public Rigidbody rb;
     public float turnSpeed = 5f;
     public float turnSpeedMultiplier = 25f;
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        if (rb == null) rb = animator.GetComponent<Rigidbody>();
         if (cam == null) cam = Camera.main;
         if (main == null) main = animator.transform;
-        animator.SetInteger("Attack", 0);
+        animator.SetBool("Attack", false);
         animator.SetInteger("HeavyAttack", 0);
+        rb.velocity = Vector3.zero;
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -28,13 +31,17 @@ public class Motion_Idle : StateMachineBehaviour
         {
             animator.SetInteger("HeavyAttack", 1);
         }
+        if (inputReader.GetRollButton())
+        {
+            animator.SetTrigger("Roll");
+        }
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+
+    }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
     //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

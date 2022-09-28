@@ -28,7 +28,7 @@ public class Motion_Move : StateMachineBehaviour
         animator.SetBool("Move", inputReader.HasMovementInput());
         if (inputReader.HasMovementInput())
         {
-            rb.velocity = main.forward * movementSpeed * Time.deltaTime;
+            rb.velocity = main.forward * movementSpeed;
             //main.position += main.forward * movementSpeed * Time.deltaTime;
             Rotate();
         }
