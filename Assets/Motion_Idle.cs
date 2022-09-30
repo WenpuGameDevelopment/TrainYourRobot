@@ -35,6 +35,10 @@ public class Motion_Idle : StateMachineBehaviour
         {
             animator.SetTrigger("Roll");
         }
+        if (inputReader.GetJumpButton())
+        {
+            animator.SetTrigger("Jump");
+        }
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

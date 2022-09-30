@@ -22,12 +22,12 @@ public class KeyboardMouseInput : InputReader
 
     public override bool GetRollButton()
     {
-        return Input.GetButton("Fire3");
+        return Input.GetKey(KeyCode.LeftShift);
     }
 
     public override bool GetJumpButton()
     {
-        return Input.GetButton("Fire2");
+        return Input.GetKey(KeyCode.Space);
     }
 
     public override bool GetL1Button()
