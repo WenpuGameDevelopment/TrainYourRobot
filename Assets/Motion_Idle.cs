@@ -12,9 +12,9 @@ public class Motion_Idle : StateMachineBehaviour
     public float turnSpeedMultiplier = 25f;
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (rb == null) rb = animator.GetComponent<Rigidbody>();
+        if (rb == null) rb = animator.GetComponentInSelfOrParent<Rigidbody>();
         if (cam == null) cam = Camera.main;
-        if (main == null) main = animator.transform;
+        if (main == null) main = animator.transform.parent;
         animator.SetBool("Attack", false);
         animator.SetInteger("HeavyAttack", 0);
         rb.velocity = Vector3.zero;

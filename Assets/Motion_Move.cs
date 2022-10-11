@@ -14,9 +14,9 @@ public class Motion_Move : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (rb == null) rb = animator.GetComponent<Rigidbody>();
+        if (rb == null) rb = animator.GetComponentInSelfOrParent<Rigidbody>();
         if (cam == null) cam = Camera.main;
-        if (main == null) main = animator.transform;
+        if (main == null) main = animator.transform.parent;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -28,9 +28,9 @@ public class Motion_Move : StateMachineBehaviour
         animator.SetBool("Move", inputReader.HasMovementInput());
         if (inputReader.HasMovementInput())
         {
-            rb.velocity = main.forward * movementSpeed;
+            rb.velocity = (main.rotation * inputReader.GetAxis().To3DMovementAxis()) * movementSpeed;
             //main.position += main.forward * movementSpeed * Time.deltaTime;
-            Rotate();
+            //Rotate();
         }
         if (inputReader.GetLightAttackButton())
         {

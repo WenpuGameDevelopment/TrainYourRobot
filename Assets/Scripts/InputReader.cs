@@ -91,3 +91,18 @@ public abstract class InputReader : MonoBehaviour
         throw new NotImplementedException();
     }
 }
+
+public static class ComponentTool
+{
+    public static T GetComponentInSelfOrParent<T>(this Component component)
+    {
+        if(component.TryGetComponent(out T t))
+        {
+            return t;
+        }
+        else
+        {
+            return component.GetComponentInParent<T>();
+        }
+    }
+}
